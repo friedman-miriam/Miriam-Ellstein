@@ -1,0 +1,49 @@
+﻿@using System.Collections
+@{
+    ViewData["Title"] = "Home Page";
+}
+<script>
+    //get relevant ellements from data
+    var viewData = @Json.Serialize(ViewData["Data"]);
+    function SetContent(index) {
+        document.getElementById("data-content").innerText = viewData[index]["body"];
+        document.getElementById("link-content").href = viewData[index]["link"];
+    }
+</script>
+@*<head>
+    <link rel="stylesheet" href="../wwwroot/css/index.css" type="text/css" />
+</head>*@
+<div style="  border: 1px solid black;
+  margin: 1rem;
+  padding: 2rem 2rem;
+  text-align: center;">
+    <div class="text-center" style="left:0;width:50%; border-style:solid; color:purple;  display: inline-block;
+
+  padding: 1rem 1rem;
+  vertical-align: middle;;">
+        <ul id="links-list">
+            @foreach (NewsData link in (IEnumerable)ViewData["Data"])
+            {
+                //Extracting the article titles from the data
+                int i = link.Index;
+                <li>
+                    @* <a href="#" onclick="SetContent(0)">@link.Title</a> *@
+                    <a href="#" onclick="SetContent(@i)">@link.Title</a>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div style="right:auto;width:50%;  display: inline-block;
+
+  padding: 1rem 1rem;
+  vertical-align: middle;">
+        @*data*@
+        <div id="data-content" style="text-align:right;border-style: solid;color:red"></div>
+
+        <br />
+        @*  link
+        *@
+        <a id="link-content" style="text-align:right;border-style:solid; color: green">read more...</a>
+    </div>
+</div>
